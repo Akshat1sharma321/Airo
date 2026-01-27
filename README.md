@@ -88,3 +88,41 @@ fewer bugs
 
 
 index file  ---> apirRoutes --> v1 --> airplane ---> controller ---> service ---> repositories ---> talk to model --> changes in the database
+
+npx sequelize db:create  --> npx sequelize db: migrate 
+//waise to make the migration and then the changes will be made in the db but for faster purpose drop the database and perform the above steps ,,,, for start use npx sequelize init 
+
+
+*****Very Important Error handling learning ****
+   {
+  errors: [
+    ValidationErrorItem {
+      message: 'Airplane.capacity cannot be null',
+      type: 'notNull Violation',
+      path: 'capacity',
+      value: null,
+      origin: 'CORE',
+      instance: [Airplane],
+      validatorKey: 'is_null',
+      validatorName: null,
+      validatorArgs: []
+    },
+    ValidationErrorItem {
+      message: 'Validation isAlphanumeric on modelNumber failed',
+      type: 'Validation error',
+      path: 'modelNumber',
+      value: 'airbus-a320 $',
+      origin: 'FUNCTION',
+      instance: [Airplane],
+      validatorKey: 'isAlphanumeric',
+      validatorName: 'isAlphanumeric',
+      validatorArgs: [],
+      original: [Error]
+    }
+  ]
+}
+Explanation for the error is  : Airplane.capacity cannot be null,Validation isAlphanumeric on modelNumber failed 
+
+
+//So in a booking application like this where we are booking the flights we see that it is a read heavy task where people used to spend alot of timme in just finding the best flight option they have instead of booking so for booking 1 ticket they spend around 1 hr ....
+//During year end or festive days the trafic will be high and if we  have booking and search mechanism as a monolith architecture than we would have to scale both regardless of the fact that booking might linearly increase and searches exponentially increase therefore we must use microservices to just scale the booking service 
