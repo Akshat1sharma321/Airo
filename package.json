@@ -1,0 +1,25 @@
+{
+  "name": "airline_model_backend",
+  "version": "1.0.0",
+  "description": "It is a project which will act as a airline booking system",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch src/index.js"
+  },
+  "author": "Akshat Sharma",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "http-status-codes": "^2.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.1.5",
+    "mongoose-aggregate-paginate-v2": "^1.1.4",
+    "mysql2": "^3.16.1",
+    "sequelize": "^6.37.7",
+    "sequelize-cli": "^6.6.5",
+    "winston": "^3.19.0"
+  }
+}
