@@ -50,5 +50,13 @@ const createAirplane = async (data)=>{
 
 }
 
+const getAirplane = async ()=>{
+  try {
+    const airplanes  = await airplaneRepository.getAll() ; 
+    return airplanes ; 
+  } catch (error) {
+    throw new AppError('Cannot get the airplanes ' , StatusCodes.INTERNAL_SERVER_ERROR) ; 
+  }
+}
 
-module.exports  ={ createAirplane}
+module.exports  ={ createAirplane , getAirplane}

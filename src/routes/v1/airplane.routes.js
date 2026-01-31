@@ -7,7 +7,13 @@ const router = Router()
 console.log("in airplane");
 
 
-router.route('/').post(airplaneMiddleware.validateCreateRequest , AirplaneController)
+router.route('/').post(airplaneMiddleware.validateCreateRequest , AirplaneController.createAirplane)
+
+router
+  .route("/")
+  .get(
+    AirplaneController.getAirplanes,
+  );
 
 module.exports = router
  

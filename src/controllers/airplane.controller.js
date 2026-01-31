@@ -40,5 +40,18 @@ const createAirplane = async(req,res)=>{
 
 // module.exports = createAirplane
 
-module.exports = createAirplane 
+const getAirplanes = async (req , res)=>{
+    try {
+        const airplanes  = await AirplaneService.getAirplane() ;
+
+        successResponse.data = airplanes;
+        return res.status(StatusCodes.OK).json(successResponse);
+    } catch (error) {
+        errorResponse.error = { explanation: error };
+        return res.status(error.statusCode).json(errorResponse);
+    }
+}
+
+module.exports = {
+    createAirplane , getAirplanes }
 
