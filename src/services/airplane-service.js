@@ -1,6 +1,7 @@
 const { StatusCodes } = require("http-status-codes");
 const { AirplaneRepository } = require("../repositories");
 const AppError = require("../utils/error/app-error");
+const { addTicks } = require("sequelize/lib/utils");
 
 const airplaneRepository = new AirplaneRepository() ; 
 const createAirplane = async (data)=>{
@@ -50,7 +51,7 @@ const createAirplane = async (data)=>{
 
 }
 
-const getAirplane = async ()=>{
+const getAirplanes = async ()=>{
   try {
     const airplanes  = await airplaneRepository.getAll() ; 
     return airplanes ; 
@@ -59,4 +60,34 @@ const getAirplane = async ()=>{
   }
 }
 
-module.exports  ={ createAirplane , getAirplane}
+const getAirplane  = async(id) =>{
+  try {
+    const airplane  =  await airplaneRepository.get(id) ; 
+    return airplane ; 
+  } catch (error) {
+    if (error.statusCode === StatusCodes.NOT_FOUND) {
+      throw new AppError(
+        "The airplane you are trying to foind is not there",
+        error.statusCode,
+      );
+    }
+    throw new AppError('Cannot get the airplane ' , StatusCodes.INTERNAL_SERVER_ERROR)
+  }
+}
+
+const destroyAirplane = async (id) => {
+  try {
+    const airplanes = await airplaneRepository.destroy(id);
+    return airplanes;
+  } catch (error) {
+    if(error.statusCode === StatusCodes.NOT_FOUND){
+      throw new AppError('Cannot find the airplane you want to delete' , error.statusCode)
+    }
+    throw new AppError(
+      "Cannot get the airplanes ",
+      StatusCodes.INTERNAL_SERVER_ERROR,
+    );
+  }
+};
+
+module.exports  ={ createAirplane , getAirplanes , getAirplane , destroyAirplane}

@@ -1,4 +1,6 @@
+const { StatusCodes } = require("http-status-codes");
 const { logger } = require("../config");
+const AppError = require("../utils/error/app-error");
 
 class CrudRepository {
   constructor(model) {
@@ -28,6 +30,9 @@ class CrudRepository {
           id: data,
         },
       });
+      if(response === 0){
+        throw new AppError('Cannot delete the data you want to delete' , StatusCodes.NOT_FOUND)
+      }
       return response;
     } catch (error) {
       logger.error(`Something went wrong in crud repo : create`);
@@ -38,6 +43,9 @@ class CrudRepository {
   async get(data) {
     try {
       const response = await this.model.findByPk(data);
+      if(!response){
+        throw new AppError('Cannot find the data' , StatusCodes.NOT_FOUND)
+      }
       return response;
     } catch (error) {
       logger.error(`Something went wrong in crud repo : get`);

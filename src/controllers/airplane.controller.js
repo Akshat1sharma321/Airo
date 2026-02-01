@@ -1,57 +1,83 @@
 const { StatusCodes } = require("http-status-codes");
 const { AirplaneService } = require("../services");
 const { successResponse } = require("../utils/common");
-const {errorResponse}  = require("../utils/common")
+const { errorResponse } = require("../utils/common");
+const AppError = require("../utils/error/app-error");
+//POST req : airplanes/
 
-const createAirplane = async(req,res)=>{
+const createAirplane = async (req, res) => {
+  try {
+    console.log("In ac");
+
+    console.log(AirplaneService);
+
+    console.log(req.body);
+
+    const { modelNumber, capacity } = req.body;
+
+    const airplane = await AirplaneService.createAirplane({
+      modelNumber,
+      capacity,
+    });
+    successResponse.message = "Successfully created the airplane ";
+    successResponse.data = airplane;
+    return res.status(StatusCodes.CREATED).json(successResponse);
+    // return res.status(StatusCodes.CREATED).json({
+    //     success : true ,
+    //     msg : "Successfully created the airplane " ,
+    //     data :  airplane ,
+    //     error : {}
+    // })
+  } catch (error) {
+    errorResponse.message = "Error while creating the airplane";
+    errorResponse.error = { explanation: error };
+    // return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse);
+    return res.status(error.statusCode).json(errorResponse);
+  }
+};
+
+// module.exports = createAirplane
+//GET req : airplanes/
+const getAirplanes = async (req, res) => {
+  try {
+    const airplanes = await AirplaneService.getAirplanes();
+
+    successResponse.data = airplanes;
+    return res.status(StatusCodes.OK).json(successResponse);
+  } catch (error) {
+    errorResponse.error = { explanation: error };
+    return res.status(error.statusCode).json(errorResponse);
+  }
+};
+//POST req : airplanes/:id
+const getAirplane = async (req,res)=>{
     try {
-        console.log("In ac");
-
-        console.log(AirplaneService);
-        
-        
-        console.log(req.body);
-        
-        const {modelNumber , capacity} = req.body ; 
-
-        const airplane  =  await AirplaneService.createAirplane({
-            modelNumber , capacity
-        })
-        successResponse.message = "Successfully created the airplane ";
+        const airplane  = await AirplaneService.getAirplane(req.params.id) ; 
         successResponse.data = airplane ;
-         return res.status(StatusCodes.CREATED).json(successResponse)
-        // return res.status(StatusCodes.CREATED).json({
-        //     success : true , 
-        //     msg : "Successfully created the airplane " , 
-        //     data :  airplane , 
-        //     error : {}
-        // })
-
+        return res.status(StatusCodes.OK).json(successResponse) ; 
     } catch (error) {
-
-        errorResponse.message = "Error while creating the airplane" ; 
-        errorResponse.error = {explanation : error}
-        // return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(errorResponse);
-        return res
-          .status(error.statusCode)
-          .json(errorResponse);
+        
+        errorResponse.error = {explanation : error} ; 
+        return res.status(error.statusCode).json(errorResponse)
     }
 }
 
-// module.exports = createAirplane
-
-const getAirplanes = async (req , res)=>{
+//DELETE req : airplanes/:id
+const destroyAirplane = async (req,res)=>{
     try {
-        const airplanes  = await AirplaneService.getAirplane() ;
-
-        successResponse.data = airplanes;
-        return res.status(StatusCodes.OK).json(successResponse);
+        const airplane  = await AirplaneService.destroyAirplane(req.params.id) ; 
+        successResponse.data = airplane ;
+        return res.status(StatusCodes.OK).json(successResponse) ; 
     } catch (error) {
-        errorResponse.error = { explanation: error };
-        return res.status(error.statusCode).json(errorResponse);
+        
+        errorResponse.error = {explanation : error} ; 
+        return res.status(error.statusCode).json(errorResponse)
     }
 }
 
 module.exports = {
-    createAirplane , getAirplanes }
-
+  createAirplane,
+  getAirplanes,
+  getAirplane , 
+  destroyAirplane
+};

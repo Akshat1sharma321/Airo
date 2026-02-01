@@ -126,3 +126,23 @@ Explanation for the error is  : Airplane.capacity cannot be null,Validation isAl
 
 //So in a booking application like this where we are booking the flights we see that it is a read heavy task where people used to spend alot of timme in just finding the best flight option they have instead of booking so for booking 1 ticket they spend around 1 hr ....
 //During year end or festive days the trafic will be high and if we  have booking and search mechanism as a monolith architecture than we would have to scale both regardless of the fact that booking might linearly increase and searches exponentially increase therefore we must use microservices to just scale the booking service 
+//npx sequelize seed:generate --name name_here
+// npx sequelize seed:all
+//✔ Creating a new table
+npx sequelize model:generate --name Airplane --attributes modelNumber:string,capacity:integer
+npx sequelize db:migrate
+
+✔ Changing an existing table
+npx sequelize migration:generate --name add-seatcount-to-airplanes
+# then edit migration manually
+npx sequelize db:migrate
+
+
+// for starting mysql use 
+..mysql -u root -p 
+then enter password
+
+// here the delete call will only be made if we send the id and in mysql the ids are incremental in nature but like in mongo if a persone sends a random id then also the reques can be made therefore we can make a middleware to process only those request which have validated ids in them .
+
+
+//Task 1 -- make the update api with the patch request like  /api/v1/airplane  - patch nd req.body  = { capacity : 250} also do the error handling 
