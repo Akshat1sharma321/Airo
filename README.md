@@ -146,3 +146,7 @@ then enter password
 
 
 //Task 1 -- make the update api with the patch request like  /api/v1/airplane  - patch nd req.body  = { capacity : 250} also do the error handling 
+
+//Task 2 -- make the delete city api with the patch request like  /api/v1/cities/:id  - delete nd req.body  = { capacity : 250} also do the error handling 
+
+//Task 3 -- make the update city api with the patch request like  /api/v1/cities/:id  - delete nd req.body  = { capacity : 250} also do the error handling 

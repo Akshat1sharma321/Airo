@@ -1,0 +1,19 @@
+const { StatusCodes } = require("http-status-codes");
+const { errorResponse } = require("../utils/common");
+const AppError = require("../utils/error/app-error");
+
+const validateCreateRequest = (req, res, next) => {
+  if (!req.body) {
+    errorResponse.message = "error occured  ";
+    errorResponse.error = new AppError(
+      ["Validating error city not entered correctly"],
+      StatusCodes.BAD_REQUEST,
+    );
+    return res.status(StatusCodes.BAD_REQUEST).json(errorResponse);
+  }
+  next();
+};
+
+module.exports = {
+  validateCreateRequest,
+};
