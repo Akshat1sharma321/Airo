@@ -136,13 +136,79 @@ npx sequelize db:migrate
 npx sequelize migration:generate --name add-seatcount-to-airplanes
 # then edit migration manually
 npx sequelize db:migrate
-
+npx sequelize migration:generate --name update-city-airport-association
 
 // for starting mysql use 
 ..mysql -u root -p 
 then enter password
 
 // here the delete call will only be made if we send the id and in mysql the ids are incremental in nature but like in mongo if a persone sends a random id then also the reques can be made therefore we can make a middleware to process only those request which have validated ids in them .
+
+🔹 1. Roll back the last migration only (MOST COMMON)
+
+If the failing migration is the most recent one:
+
+npx sequelize db:migrate:undo
+
+
+✅ Undoes only the last migration
+✅ Uses the down() function of that migration
+
+🔹 2. Roll back a specific migration (by name)
+npx sequelize db:migrate:undo --name 20260201210319-update-airport-prop.js
+
+
+📌 Useful when:
+
+Multiple migrations exist
+
+You want to undo a specific one
+
+🔹 3. Roll back multiple migrations
+npx sequelize db:migrate:undo:all
+
+
+⚠️ Dangerous
+
+Drops ALL schema changes
+
+Only safe in local/dev
+
+🔹 4. Check migration status (VERY IMPORTANT)
+
+Before & after rollback:
+
+npx sequelize db:migrate:status
+
+
+You’ll see:
+
+up   20260130120000-create-cities-table.js
+down 20260201210319-update-airport-prop.js
+
+🔹 5. What Sequelize actually does (important)
+
+Sequelize stores applied migrations in SequelizeMeta
+
+undo removes the last entry
+
+Then runs the down() function
+
+// if someone wants to run the project 
+4️⃣ Create the database
+
+Sequelize does not auto-create DB.
+
+npx sequelize db:create
+
+5️⃣ Run ALL migrations (THIS IS THE KEY STEP)
+npx sequelize db:migrate
+
+
+we have 2 levels : 
+migrations models , migr give timestamping versioning of schema 
+
+if we make the models level constraint then sequelize gives us a lot of mmethods to work upon .
 
 
 //Task 1 -- make the update api with the patch request like  /api/v1/airplane  - patch nd req.body  = { capacity : 250} also do the error handling 

@@ -1,0 +1,103 @@
+1️⃣ Why Airport.create() works even without a repository
+
+This line alone is enough:
+
+const airport = await Airport.create({
+  name: "Kempegowda Airport",
+  code: "BLR",
+  cityId: 1
+});
+
+Why?
+
+Because:
+
+Airport is a Sequelize Model
+
+Every Sequelize model already has CRUD methods built-in
+
+Sequelize automatically provides:
+
+Airport.create()
+Airport.findAll()
+Airport.findByPk()
+Airport.update()
+Airport.destroy()
+
+
+➡️ These come from Model (base class), not from your code.
+
+So:
+
+❌ You do NOT need AirportRepository
+
+❌ You do NOT need createAirport()
+
+✅ Sequelize can talk directly to the DB
+
+2️⃣ Then what is the point of repositories?
+
+This is architecture, not ORM necessity.
+
+Without repository (works, but not ideal)
+Airport.create(...)
+
+With repository (recommended for real apps)
+AirportRepository.create(data)
+
+
+Why repositories exist:
+
+abstraction
+
+testing
+
+reusable business logic
+
+DB changes don’t break controllers
+
+But Sequelize does not require them.
+
+3️⃣ How city.createAirport() works 🤯 (magic explained)
+
+This line is even more interesting:
+
+const newBlr = await city.createAirport({
+  name: "New Bengaluru Airport",
+  code: "NBR"
+});
+
+Where did createAirport() come from?
+
+You NEVER wrote it.
+
+👉 Sequelize generated it automatically because of associations.
+
+4️⃣ The association that caused this
+
+Somewhere you must have:
+
+City.hasMany(Airport);
+Airport.belongsTo(City);
+
+
+When Sequelize sees this, it auto-generates association mixins.
+
+5️⃣ Sequelize association mixins (important list)
+
+For:
+
+City.hasMany(Airport)
+
+
+Sequelize auto-adds to city instances:
+
+city.getAirports()
+city.createAirport()
+city.addAirport()
+city.addAirports()
+city.removeAirport()
+city.hasAirport()
+
+
+⚠️ These methods exist only at runtime, not in your codebase.
