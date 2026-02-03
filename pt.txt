@@ -101,3 +101,27 @@ city.hasAirport()
 
 
 ⚠️ These methods exist only at runtime, not in your codebase.
+
+
+// these are the functions provided by the sequelize ORM 
+app.listen(serverConfig.PORT,()=>{
+  console.log(`app listening at the port  : ${serverConfig.PORT}`);
+  // logger.info("Successfully started " , {})
+
+  // const  { City , Airport} = require('./models') ;
+  // const city  = await City.findByPk(1) ;
+  // console.log(city);
+  // const airport = await Airport.create({
+  //   name: 'Kempegowda Airport' ,
+  //   code : 'BLR' ,
+  //   cityId : 1
+  // })
+  // const newBlr = await city.createAirport({
+  //   name: 'New Bengaluru Airport' ,
+  //   code : 'NBR' ,
+  // })
+  // console.log(newBlr)
+  // const airportsinBlr = await city.getAirports() ; 
+  // console.log(airportsinBlr);
+  
+})
