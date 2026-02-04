@@ -5,6 +5,8 @@ const airplaneRoutes =  require("./airplane.routes.js")
 
 const cityRoutes = require("./city.routes.js")
 
+const airportRoutes = require("./airport.routes.js")
+
 console.log("in v1");
 
 
@@ -15,5 +17,7 @@ router.route('/info').get(infoController)
 router.use('/airplanes',airplaneRoutes)
 
 router.use('/cities' , cityRoutes) ; 
+
+router.use('/airport', airportRoutes) ; 
 
 module.exports = router ; 

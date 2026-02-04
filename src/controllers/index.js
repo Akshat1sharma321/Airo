@@ -3,5 +3,6 @@ const { infoController } = require("./info-controller.controller.js");
 module.exports = {
     infoController ,
     AirplaneController : createAirplane , 
-    CityController : require("./city.controller.js")
+    CityController : require("./city.controller.js") , 
+    AirportController : require("./airport.controller.js")
 }
