@@ -1,6 +1,7 @@
 const { StatusCodes } = require("http-status-codes");
 const AppError = require("../utils/error/app-error");
 const { errorResponse } = require("../utils/common");
+const { dateTime } = require("../utils/helper");
 
 const validateCreateRequest = (req, res, next) => {
   console.log(req.body);
@@ -51,7 +52,21 @@ const validateCreateRequest = (req, res, next) => {
       StatusCodes.BAD_REQUEST,
     );
     return res.status(StatusCodes.BAD_REQUEST).json(errorResponse);
-  }if (!req.body.price) {
+  }
+  if (!dateTime.timeValid(req.body.departureTime,req.body.arrivalTime)) {
+    errorResponse.message = "Error occured";
+    errorResponse.error = new AppError(
+      "Please provide the correct departureTime as it must be less  than  arrival time for the airport",
+      StatusCodes.BAD_REQUEST,
+    );
+    return res.status(StatusCodes.BAD_REQUEST).json(errorResponse);
+  }
+ 
+  
+  
+  
+  
+  if (!req.body.price) {
     errorResponse.message = "Error occured";
     errorResponse.error = new AppError(
       "Please provide the correct price for the airport",

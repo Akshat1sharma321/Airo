@@ -218,3 +218,5 @@ if we make the models level constraint then sequelize gives us a lot of mmethods
 //Task 3 -- make the update city api with the patch request like  /api/v1/cities/:id  - delete nd req.body  = { capacity : 250} also do the error handling 
 
 //Task 4 --- Implement Update Airport
+
+// Task 5 --- implement arrival and departure time check such that arrival time is less than departure timme check
