@@ -48,19 +48,16 @@ class CrudRepository {
       }
       return response;
     } catch (error) {
+      console.log(error);
+      
       logger.error(`Something went wrong in crud repo : get`);
       throw error;
     }
   }
 
   async getAll() {
-    try {
       const response = await this.model.findAll();
       return response;
-    } catch (error) {
-      logger.error(`Something went wrong in crud repo : get`);
-      throw error;
-    }
   }
 
   async update(id , data) {

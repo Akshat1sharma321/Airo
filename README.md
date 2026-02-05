@@ -216,3 +216,5 @@ if we make the models level constraint then sequelize gives us a lot of mmethods
 //Task 2 -- make the delete city api with the patch request like  /api/v1/cities/:id  - delete nd req.body  = { capacity : 250} also do the error handling 
 
 //Task 3 -- make the update city api with the patch request like  /api/v1/cities/:id  - delete nd req.body  = { capacity : 250} also do the error handling 
+
+//Task 4 --- Implement Update Airport
